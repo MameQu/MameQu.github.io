@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Local Media Viewer</title>
+</head>
+
+<body>
+  <h1>Local Media Viewer</h1>
+  <div>
+    <input type="radio" id="pictures" name="mediatype" value="image" checked>
+    <label for="pictures">Pictures</label>
+    <input type="radio" id="videos" name="mediatype" value="video">
+    <label for="videos">Videos</label>
+    <input type="radio" id="both" name="mediatype" value="both">
+    <label for="both">Both</label>
+  </div>
+  <input type="file" id="fileInput" multiple accept="image/*, video/*">
+  <div id="mediaContainer"></div>
+  <script src="script.js"></script>
+</body>
+
+</html>
+
+
+
+<link href="style.css" rel="stylesheet" type="text/css" />
