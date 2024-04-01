@@ -7,13 +7,13 @@
   <title>MameQu Redirects</title>
   <style>
     body {
-        font-family: 'Arial Narrow', Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background: url(https://konachan.net/image/8854c28d1b98e24273b35479628cb628/Konachan.com%20-%20373906%20animal%20aqua_eyes%20barefoot%20beach%20bird%20blonde_hair%20clouds%20dress%20hana_mori%20hololive%20kazama_iroha%20ponytail%20ribbons%20sky%20summer_dress%20water.jpg);
-        background-size: cover;
-        background-position: top;
-        background-repeat: no-repeat;
+      font-family: 'Arial Narrow', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: url(https://konachan.net/image/8854c28d1b98e24273b35479628cb628/Konachan.com%20-%20373906%20animal%20aqua_eyes%20barefoot%20beach%20bird%20blonde_hair%20clouds%20dress%20hana_mori%20hololive%20kazama_iroha%20ponytail%20ribbons%20sky%20summer_dress%20water.jpg);
+      background-size: cover;
+      background-position: top;
+      background-repeat: no-repeat;
     }
 
     .container {
@@ -22,6 +22,28 @@
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease-in-out;
+      opacity: 1; /* Initially hide container */
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: .7;
+      }
+      to {
+        opacity: .5;
+      }
+    }
+
+    h1 {
+      text-align: center;
+      color: #33cccc;
+    }
+    @keyframes moveIn {
+      from {opacity: .5;
+      }
+      to {opacity: .7;
+      }
     }
 
     h1 {
@@ -33,20 +55,22 @@
       margin-bottom: 20px;
       border-bottom: 1px solid #ccc;
       padding: 20px;
-      background-color: #004d99;
+      background-color: #005580;
       border-radius: 8px;
       cursor: pointer;
-      transition: background-color 0.3s;
+      transition: background-color 0.3s ease-in-out;
+      opacity: 1; /* Initially hide project */
+      animation: fadeIn 1s ease-in forwards; /* Fade in animation */
     }
 
     .project:last-child {
       border-bottom: none;
       margin-bottom: 0;
-      opacity: 80%;
     }
 
     .project:hover {
       background-color: #005580;
+      animation: moveIn .2s ease-in forwards; /* Fade in animation */
     }
 
     .project a {
@@ -56,7 +80,6 @@
 
     .project p {
       color: #fff;
-      /* White text */
     }
   </style>
 </head>
@@ -97,4 +120,5 @@
 
   </div>
 </body>
+
 </html>
