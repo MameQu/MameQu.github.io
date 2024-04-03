@@ -23,10 +23,10 @@
         <input type="number" id="customDuration" name="durationNum" min="0" step="1" value="0">Minutes&nbsp;
         <button type="button" onclick="startTimer()">Begin</button>
     </form>
-    <h2 id="countdown"  style="position: absolute;top:0;left:10px;"></h2>
+    <h2 id="countdown" style="position: absolute;top:0;left:10px"></h2>
     </div>
     <div>
-    <textarea cols="30" rows="10" hidden></textarea>
+    <textarea cols="30" rows="10"></textarea>
     </div>
 <a href="https://konachan.com/post.json?tags=rating%3Asafe+order%3Arandom+date%3A%3E%3D2017-01-01" target="_blank">
 <div style="position: absolute;top: 0;right: 50px;background-color: lightblue;
@@ -42,20 +42,12 @@ font-family: Arial, sans-serif;
 text-align: center;
 top: 0;
 position: absolute;
-left: 0;
-z-index: -1;"></div>
+z-index: -1;
+left: 0;"></div>
+<button type="button" onclick="showNextImage()">Next Image</button>
+
 <script>
-    let intervalId;
-    let duration;
-    function stateIn() {
-        startTimer();
-        displayImg();
-    }
-    function displayImg() {
-        
-    }
-    function startTimer() {
-        
+        function showNextImage() {
         let currentImageIndex = 0;
         const textareaContent = document.querySelector("body > div:nth-child(2) > textarea").value;
         const imageLinks = JSON.parse(textareaContent);
@@ -68,6 +60,17 @@ z-index: -1;"></div>
         if (currentImageIndex >= imageLinks.length) {
             currentImageIndex = 0;
         }
+    }
+    let intervalId;
+    let duration;
+    function stateIn() {
+        startTimer();
+        displayImg();
+    }
+    function displayImg() {
+        
+    }
+    function startTimer() {
         const selectedRadio = document.querySelector('input[name="duration"]:checked');
         if (document.getElementById('customDuration').value == 0) {
             if (!selectedRadio){
