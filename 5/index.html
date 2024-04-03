@@ -93,14 +93,6 @@ left: 0;"></div>
             countdownElement.textContent = formatTime(duration);
             if (duration <= 0) {
                 duration = resets + 10;
-        const imageContainer = document.getElementById('imageContainer');
-        const imageURL = imageLinks[currentImageIndex];
-        imageContainer.innerHTML = `<img src="${imageURL}" style="width: 100%;" alt="Image ${currentImageIndex + 1}">`;
-
-        currentImageIndex++;
-        if (currentImageIndex >= imageLinks.length) {
-            currentImageIndex = 0;
-        }
                 console.log("Countdown finished. Duration:", selectedRadio.nextElementSibling.textContent.trim());
             }
         }, 1000);
