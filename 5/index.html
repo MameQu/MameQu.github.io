@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Countdown Timer</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+    #customDuration {
+        width: 30px; 
+    }
+</style>
+</head>
+<body>
+    <div>
+    <form id="timerForm">
+        <input type="radio" id="3min" name="duration" value="180"> <label for="3min">3 Minutes</label>&nbsp;
+        <input type="radio" id="5min" name="duration" value="300"> <label for="5min">5 Minutes</label>&nbsp;
+        <input type="radio" id="10min" name="duration" value="600"> <label for="10min">10 Minutes</label>&nbsp;
+        <input type="number" id="customDuration" name="durationNum" min="0" step="1" value="0">Minutes&nbsp;
+        <button type="button" onclick="startTimer()">Begin</button>
+    </form>
+    <h2 id="countdown" style="position: absolute;top:0;left:10px"></h2>
+    </div>
+    <div>
+    <textarea cols="30" rows="10"></textarea>
+    <h2 id="countdown" style="position: absolute;top:0;left:10px"></h2>
+    </div>
+<a href="https://konachan.com/post.json?tags=rating%3Asafe+order%3Arandom+date%3A%3E%3D2017-01-01" target="_blank">
+<div style="position: absolute;top: 0;right: 50px;background-color: lightblue;
+padding: 10px;color:aliceblue">
+    Get JSON
+    </div></a>
+<a href="https://konachan.com/post.json?tags=rating%3Asafe+order%3Arandom+date%3A%3E%3D2017-01-01">
+<div style="position: absolute;top: 0;right: 5px;size:10px;overflow: hidden;background-color: lightblue;padding: 10px;height: 20px;vertical-align: middle;align-content: center;width: 20px;">
+<img src="https://www.spriters-resource.com/resources/sheet_icons/136/138938.png?updated=1599498220" style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);height:auto;width:90px;">
+</div></a>
+<script>
+    let intervalId;
+    let duration;
+    function stateIn() {
+        startTimer();
+        displayImg();
+    }
+    function displayImg() {
+
+    }
+    function startTimer() {
+        const selectedRadio = document.querySelector('input[name="duration"]:checked');
+        if (document.getElementById('customDuration').value == 0) {
+            if (!selectedRadio){
+                alert("Please select a duration.");
+            return;
+            } else {
+                duration = parseInt(selectedRadio.value, 10);
+            }
+        } else {
+            duration = document.getElementById('customDuration').value * 60;
+        }
+        
+        const resets = duration;
+        const countdownElement = document.getElementById("countdown");
+        countdownElement.textContent = formatTime(duration);
+        
+        clearInterval(intervalId);
+        intervalId = setInterval(() => {
+            duration--;
+            countdownElement.textContent = formatTime(duration);
+            if (duration <= 0) {
+                duration = resets + 10;
+                console.log("Countdown finished. Duration:", selectedRadio.nextElementSibling.textContent.trim());
+            }
+        }, 1000);
+    }
+    
+    function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+    }
+</script>
+</body>
+</html>
