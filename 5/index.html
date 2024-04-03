@@ -23,11 +23,10 @@
         <input type="number" id="customDuration" name="durationNum" min="0" step="1" value="0">Minutes&nbsp;
         <button type="button" onclick="startTimer()">Begin</button>
     </form>
-    <h2 id="countdown" style="position: absolute;top:0;left:10px"></h2>
+    <h2 id="countdown"  style="position: absolute;top:0;left:10px;z-index: 2;"></h2>
     </div>
     <div>
     <textarea cols="30" rows="10"></textarea>
-    <h2 id="countdown" style="position: absolute;top:0;left:10px"></h2>
     </div>
 <a href="https://konachan.com/post.json?tags=rating%3Asafe+order%3Arandom+date%3A%3E%3D2017-01-01" target="_blank">
 <div style="position: absolute;top: 0;right: 50px;background-color: lightblue;
@@ -38,27 +37,30 @@ padding: 10px;color:aliceblue">
 <div style="position: absolute;top: 0;right: 5px;size:10px;overflow: hidden;background-color: lightblue;padding: 10px;height: 20px;vertical-align: middle;align-content: center;width: 20px;">
 <img src="https://www.spriters-resource.com/resources/sheet_icons/136/138938.png?updated=1599498220" style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);height:auto;width:90px;">
 </div></a>
-<div id="imageContainer" style="width: 100%;height: auto;"></div>
+<div id="imageContainer" style="    
+font-family: Arial, sans-serif;
+text-align: center;
+top: 0;
+position: absolute;
+z-index: 1;
+left: 0;"></div>
 <button type="button" onclick="showNextImage()">Next Image</button>
 
 <script>
-    let currentImageIndex = 0;
-    const textareaContent = document.querySelector("body > div:nth-child(2) > textarea").value;
-    const imageLinks = JSON.parse(textareaContent);
-    console.log(imageLinks);
         function showNextImage() {
+        let currentImageIndex = 0;
+        const textareaContent = document.querySelector("body > div:nth-child(2) > textarea").value;
+        const imageLinks = JSON.parse(textareaContent);
+        console.log(imageLinks);
         const imageContainer = document.getElementById('imageContainer');
         const imageURL = imageLinks[currentImageIndex];
-        imageContainer.innerHTML = `<img src="${imageURL}" alt="Image ${currentImageIndex + 1}">`;
+        imageContainer.innerHTML = `<img src="${imageURL}" style="width: 100%;" alt="Image ${currentImageIndex + 1}">`;
 
-        // Increment the current index and loop back to the beginning if necessary
         currentImageIndex++;
         if (currentImageIndex >= imageLinks.length) {
             currentImageIndex = 0;
         }
     }
-</script>
-<script>
     let intervalId;
     let duration;
     function stateIn() {
@@ -91,6 +93,14 @@ padding: 10px;color:aliceblue">
             countdownElement.textContent = formatTime(duration);
             if (duration <= 0) {
                 duration = resets + 10;
+        const imageContainer = document.getElementById('imageContainer');
+        const imageURL = imageLinks[currentImageIndex];
+        imageContainer.innerHTML = `<img src="${imageURL}" style="width: 100%;" alt="Image ${currentImageIndex + 1}">`;
+
+        currentImageIndex++;
+        if (currentImageIndex >= imageLinks.length) {
+            currentImageIndex = 0;
+        }
                 console.log("Countdown finished. Duration:", selectedRadio.nextElementSibling.textContent.trim());
             }
         }, 1000);
