@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Countdown Timer</title>
+<title>Drawing Time</title>
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -26,14 +26,14 @@
     <h2 id="countdown" style="position: absolute;top:0;left:10px"></h2>
     </div>
     <div>
-    <textarea cols="30" rows="10"></textarea>
+    <textarea cols="30" rows="10" hidden></textarea>
     </div>
-<a href="https://konachan.net/post.json?tags=rating%3Asafe+order%3Arandom+date%3A%3E%3D2017-01-01" target="_blank">
+<a href="https://konachan.net/post.json?tags=rating%3Asafe+order%3Arandom+-no_humans+date%3A%3E%3D2017-01-01+score%3A%3E%3D60" target="_blank">
 <div style="position: absolute;top: 0;right: 50px;background-color: lightblue;
 padding: 10px;color:aliceblue">
     Get JSON
     </div></a>
-<a href="https://konachan.net/post.json?tags=rating%3Asafe+order%3Arandom+date%3A%3E%3D2017-01-01">
+<a href="getJson.user.js">
 <div style="position: absolute;top: 0;right: 5px;size:10px;overflow: hidden;background-color: lightblue;padding: 10px;height: 20px;vertical-align: middle;align-content: center;width: 20px;">
 <img src="https://www.spriters-resource.com/resources/sheet_icons/136/138938.png?updated=1599498220" style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);height:auto;width:90px;">
 </div></a>
@@ -43,67 +43,83 @@ text-align: center;
 top: 0;
 position: absolute;
 z-index: -1;
-left: 0;"><img src="https://konachan.com/image/8854c28d1b98e24273b35479628cb628/Konachan.com%20-%20373906%20animal%20aqua_eyes%20barefoot%20beach%20bird%20blonde_hair%20clouds%20dress%20hana_mori%20hololive%20kazama_iroha%20ponytail%20ribbons%20sky%20summer_dress%20water.jpg" style="width: 100%;">
+left: 0;">
 </div>
-<button type="button" onclick="showNextImage()">Next Image</button>
 
 <script>
-        function showNextImage() {
-        let currentImageIndex = 0;
-        const textareaContent = document.querySelector("body > div:nth-child(2) > textarea").value;
-        const imageLinks = JSON.parse(textareaContent);
-        console.log(imageLinks);
-        const imageContainer = document.getElementById('imageContainer');
-        const imageURL = imageLinks[currentImageIndex];
-        imageContainer.innerHTML = `<img src="${imageURL}" style="width: 100%;" alt="Image ${currentImageIndex + 1}">`;
+let currentImageIndex = 0;
 
-        currentImageIndex++;
-        if (currentImageIndex >= imageLinks.length) {
-            currentImageIndex = 0;
-        }
+function showNextImage(callback) {
+    const textareaContent = document.querySelector("body > div:nth-child(2) > textarea").value;
+    const imageLinks = JSON.parse(textareaContent);
+    const imageContainer = document.getElementById('imageContainer');
+
+    if (imageLinks.length > 0) {
+        const imageURL = imageLinks[currentImageIndex];
+        const img = new Image(); // Create a new Image element
+        img.onload = function() { // Add onload event listener
+            imageContainer.innerHTML = ''; // Clear previous image(s)
+            img.style.width = '100%'; // Set width to 100%
+            imageContainer.appendChild(img); // Append the loaded image
+            currentImageIndex++;
+            if (currentImageIndex >= imageLinks.length) {
+                currentImageIndex = 0;
+            }
+            if (callback) {
+                callback(); // Invoke the callback function
+            }
+        };
+        img.src = imageURL; // Start loading the image
+    } else {
+        imageContainer.innerHTML = '';
     }
-    let intervalId;
-    let duration;
-    function stateIn() {
-        startTimer();
-        displayImg();
-    }
-    function displayImg() {
-        
-    }
-    function startTimer() {
+}
+
+let intervalId;
+let duration;
+
+function startTimer() {
+    showNextImage(() => { // Pass a callback to showNextImage
         const selectedRadio = document.querySelector('input[name="duration"]:checked');
         if (document.getElementById('customDuration').value == 0) {
-            if (!selectedRadio){
+            if (!selectedRadio) {
                 alert("Please select a duration.");
-            return;
+                return;
             } else {
                 duration = parseInt(selectedRadio.value, 10);
             }
         } else {
             duration = document.getElementById('customDuration').value * 60;
         }
-        
+
         const resets = duration;
         const countdownElement = document.getElementById("countdown");
         countdownElement.textContent = formatTime(duration);
-        
+
         clearInterval(intervalId);
         intervalId = setInterval(() => {
             duration--;
             countdownElement.textContent = formatTime(duration);
             if (duration <= 0) {
-                duration = resets + 10;
-                console.log("Countdown finished. Duration:", selectedRadio.nextElementSibling.textContent.trim());
+                countdownElement.textContent = "00:00"
+                showNextImage(() => { // Callback after image loaded
+                    duration = resets + 10;
+                    console.log("Countdown finished. Duration:", selectedRadio.nextElementSibling.textContent.trim());
+                    if (callback) {
+                        callback(); // Callback after timer expires
+                    }
+                });
             }
         }, 1000);
-    }
-    
-    function formatTime(seconds) {
-        const minutes = Math.floor(seconds / 60);
-        const remainingSeconds = seconds % 60;
-        return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-    }
+    });
+}
+
+function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+}
+
 </script>
 </body>
 </html>
