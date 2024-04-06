@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Newspaper Layout</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        width: 1000px;
+        margin: 0 auto;
+    }
+    .header {
+        background-color: #333;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+    }
+    .main-content {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+    .column {
+        width: 30%;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+    .row {
+        margin-bottom: 20px;
+    }
+    .article {
+        background-color: #f9f9f9;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+    .sidebar {
+        background-color: #f9f9f9;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+    .footer {
+        background-color: #333;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        clear: both;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>My Newspaper</h1>
+        </div>
+        <div class="main-content">
+            <div class="column">
+                <div class="row">
+                    <div class="article">
+                        <h2>Article 1</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac velit ut libero rhoncus bibendum.</p>
+                    </div>
+                    <div class="article">
+                        <h2>Article 2</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac velit ut libero rhoncus bibendum.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="sidebar">
+                        <h2>Sidebar</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac velit ut libero rhoncus bibendum.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="row">
+                    <div class="article">
+                        <h2>Article 3</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac velit ut libero rhoncus bibendum.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="sidebar">
+                        <h2>Sidebar</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac velit ut libero rhoncus bibendum.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="row">
+                    <div class="article">
+                        <h2>Article 4</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac velit ut libero rhoncus bibendum.</p>
+                    </div>
+                    <div class="article">
+                        <h2>Article 5</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac velit ut libero rhoncus bibendum.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <p>&copy; 2024 My Newspaper</p>
+        </div>
+    </div>
+</body>
+</html>
