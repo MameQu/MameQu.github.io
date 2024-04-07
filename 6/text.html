@@ -3,109 +3,183 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Newspaper Layout</title>
+<title>ToS</title>
 <style>
     body {
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
-    }
-    .container {
-        width: 1000px;
-        margin: 0 auto;
-    }
-    .header {
-        background-color: #333;
-        color: #fff;
-        padding: 20px;
-        text-align: center;
-    }
-    .main-content {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f0f0f0;
+    }
+    .card {
+        width: 80%;
+        height: 80%;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        display: flex;
+        justify-content: flex-start;
         margin-top: 20px;
     }
+    .profile-pic {
+        margin: 0 auto 20px;
+    }
+    .info {
+        margin-bottom: 10px;
+    }
+    #class {
+        height: 3em;
+    }
     .column {
-        width: 30%;
         padding: 10px;
         box-sizing: border-box;
+        width: 70%;
+        display: flex;
+        justify-content: center;
     }
     .row {
-        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
     }
-    .article {
-        background-color: #f9f9f9;
-        padding: 10px;
-        margin-bottom: 10px;
+    .stats {
+        width: 35%;
+        padding-left: 10px;
     }
-    .sidebar {
-        background-color: #f9f9f9;
-        padding: 10px;
-        margin-bottom: 10px;
-    }
-    .footer {
-        background-color: #333;
-        color: #fff;
+    .hidden-container {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
         padding: 20px;
-        text-align: center;
-        clear: both;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;    
+        height: 80%;
+        width: 400px;
+        overflow: auto;
+    }
+    .hidden-container ul {
+        list-style: none;
+        padding: 0;
+    }
+    .hidden-container li {
+        margin-bottom: 10px;
+        cursor: pointer;
+    }
+    .hidden-container li:hover {
+        text-decoration: underline;
     }
 </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>My Newspaper</h1>
+    <div class="card"><div class="column">
+        <img class="profile-pic" id="link" src="_blank" alt="Profile Picture">
+        <div class="Types">
+            <div class="Icons" id="role"></div>
+            <div class="Icons" id="element"></div>
+            <div class="Icons" id="job"></div>
+        </div><div class="Tiers" id="tier">
         </div>
-        <div class="main-content">
-            <div class="column">
-                <div class="row">
-                    <div class="article">
-                        <h2>Article 1</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac velit ut libero rhoncus bibendum.</p>
-                    </div>
-                    <div class="article">
-                        <h2>Article 2</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac velit ut libero rhoncus bibendum.</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="sidebar">
-                        <h2>Sidebar</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac velit ut libero rhoncus bibendum.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="column">
-                <div class="row">
-                    <div class="article">
-                        <h2>Article 3</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac velit ut libero rhoncus bibendum.</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="sidebar">
-                        <h2>Sidebar</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac velit ut libero rhoncus bibendum.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="column">
-                <div class="row">
-                    <div class="article">
-                        <h2>Article 4</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac velit ut libero rhoncus bibendum.</p>
-                    </div>
-                    <div class="article">
-                        <h2>Article 5</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac velit ut libero rhoncus bibendum.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer">
-            <p>&copy; 2024 My Newspaper</p>
+    </div><div class="stats">
+        <h2 id="name" onclick="chooseChar()">---</h2>
+        <h2 id="class" onclick="showNames()">---</h2>
+        <div class="row">
+            <p class="info">HP:<br> <span id="HP">0</span></p>
+            <p class="info">pAtk:<br> <span id="pAtk">0</span></p>
+            <p class="info">pDef:<br> <span id="pDef">0</span></p></div>
+            <div class="row">
+            <p class="info">spd:<br> <span id="spd">0</span></p>
+            <p class="info">mAtk:<br> <span id="mAtk">0</span></p>
+            <p class="info">mDef:<br> <span id="mDef">0</span></p>
         </div>
     </div>
+
+    </div>
+
+    <div class="hidden-container" id="namesContainer">
+        <ul id="nameList">
+        </ul>
+    </div>
+        
+    <script src="generated.js"></script>
+    <script>
+        function chooseChar() {
+            const nameList = document.getElementById("nameList");
+            nameList.innerHTML = ""; // Clear previous list items
+            Object.keys(code).forEach(name => {
+                const listItem = document.createElement("li");
+                listItem.textContent = name;
+                listItem.onclick = () => selectName(name);
+                nameList.appendChild(listItem);
+            });
+            document.getElementById("namesContainer").style.display = "block";
+        }
+        
+        // Function to show the hidden container when the name is clicked
+        function showNames() {
+            const nameList = document.getElementById("nameList");
+            nameList.innerHTML = "";
+            const getName = document.getElementById("name").innerText;
+            Object.keys(code[getName]).forEach(name => {
+                const classname = code[getName][name].class;
+                const listItem = document.createElement("li");
+                listItem.textContent = classname;
+                listItem.onclick = () => selectClass(classname, name);
+                nameList.appendChild(listItem);
+            });
+            document.getElementById("namesContainer").style.display = "block";
+        }
+
+        // Function to select a name from the hidden container
+        function selectName(name) {
+            document.getElementById("name").innerText = name;
+            document.getElementById("class").innerText = "---";
+            document.getElementById("namesContainer").style.display = "none";
+        }
+
+        // Function to select a name from the hidden container
+        function selectClass(name, index) {
+            document.getElementById("class").innerText = name;
+            document.getElementById("namesContainer").style.display = "none";
+            initStats(index);
+        }
+
+        // Dummy function for randomizing fields
+        function initStats(index) {
+    const currentName = document.getElementById("name").innerText;
+    const currentClass = document.getElementById("class").innerText;
+    const details = code[currentName][index];
+    document.getElementById("link").src = details.url;
+    document.getElementById("HP").innerText = details.HP;
+    document.getElementById("pAtk").innerText = details.pAtk;
+    document.getElementById("pDef").innerText = details.pDef;
+    document.getElementById("spd").innerText = details.spd;
+    document.getElementById("mAtk").innerText = details.mAtk;
+    document.getElementById("mDef").innerText = details.mDef;
+    document.getElementById("element").innerText = details.element;
+
+    if (details.role == 1) {document.getElementById("role").innerText = "Strike";}
+    else if (details.role == 2) {document.getElementById("role").innerText = "Erode";}
+    else if (details.role == 3) {document.getElementById("role").innerText = "Aid";}
+    else {document.getElementById("role").innerText = "Guard";}
+    if (details.job == 1) {document.getElementById("job").innerText = "Minstrel";} 
+    else if (details.job == 2) {document.getElementById("job").innerText = "Sorcerer";} 
+    else if (details.job == 3) {document.getElementById("job").innerText = "Mage";}
+    else if (details.job == 4) {document.getElementById("job").innerText = "Cleric";} 
+    else if (details.job == 5) {document.getElementById("job").innerText = "Breaker";} 
+    else if (details.job == 6) {document.getElementById("job").innerText = "Crusher";} 
+    else if (details.job == 7) {document.getElementById("job").innerText = "Ranger";} 
+    else {document.getElementById("job").innerText = "Paladin";};
+    document.getElementById("tier").innerText = details.tier;
+}
+    </script>
 </body>
 </html>

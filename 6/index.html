@@ -3,53 +3,127 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ToS</title>
+<title>Layout</title>
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
+    .document-bounds {
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        height: 90vh;
+        width: 100%;
+        position: relative;
         align-items: center;
-        height: 100vh;
-        background-color: #f0f0f0;
-    }
-    .card {
-        width: 80%;
-        height: 80%;
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         text-align: center;
+    }
+    
+    .CenterContainer {
         display: flex;
-        justify-content: flex-start;
-        margin-top: 20px;
+        flex: 1;
+        width: 90%;
+        margin-top: 50px;
     }
-    .profile-pic {
-        margin: 0 auto 20px;
+    
+    .ColumnSectionTwoThirds {
+        flex: 2;
+        display: flex;
+        flex-direction: column;
+        position: relative;
     }
-    .info {
-        margin-bottom: 10px;
+    
+    .FixedDivFitIntoContainer {
+        flex: 1;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        z-index: -1;
     }
-    #class {
-        height: 3em;
+    
+    .FixedDivContent {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%; /* Adjust as needed */
+        height: 100%; /* Adjust as needed */
     }
-    .column {
-        padding: 10px;
-        box-sizing: border-box;
-        width: 70%;
+    .BottomWideFixedContainer {
+        position: absolute;
+        bottom: -50px;
+        left: 0;
+        width: 100%; /* Adjust as needed */
+    }
+    
+    .LeftSidebarFixedLongContainer {
+        position: absolute;
+        right: 0;
+        height: 100%; /* Adjust as needed */
+        align-content: center;
+    }
+    
+    
+    .BoxContent {
+        width: 50px; /* Adjust as needed */
+        height: 50px; /* Adjust as needed */
+        background-color: lightblue; /* Example color */
+        margin: 0 2px; /* Adjust spacing */
+    }
+    
+    .TopCenterHorizontalSection {
         display: flex;
         justify-content: center;
+        bottom: 200px;
+        right: 50px;
+        position: absolute;
     }
-    .row {
+    
+    .ColumnSectionOneThird {
+        flex: 1;
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
     }
-    .stats {
-        width: 35%;
-        padding-left: 10px;
+    
+    .Text {
+        background-color: lightgreen; /* Example color */
+        height: 50px; /* Adjust as needed */
+         /* Adjust spacing */
+        margin: 3px;
+        align-content: center;
+    }
+    
+    .InLineHorizontalSection {
+        display: flex;
+        height: 30px;
+    }
+    
+    .TextSpan {
+        flex: 1;
+        margin: 2px 8px;
+        background-color: lightyellow; /* Example color */
+         /* Adjust spacing */
+         /* Adjust spacing */
+    }
+    
+    .HorizontalSection {
+        display: flex;
+    }
+    
+    .VerticalSection {
+        display: flex;
+        width: 50px;
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+    
+    .HContentsEqualWidth {
+        flex: 1;
+        background-color: lightcoral; /* Example color */
+        margin: 10px; /* Adjust spacing */
+    }
+    
+    .VContentsEqualHeight {
+        background-color: lightpink; /* Example color */
+         /* Adjust as needed */
+         /* Adjust spacing */
+        height: 60px;
+        margin: 5px 0;
     }
     .hidden-container {
         display: none;
@@ -80,33 +154,63 @@
 </style>
 </head>
 <body>
-    <div class="card"><div class="column">
-        <img class="profile-pic" id="link" src="_blank" alt="Profile Picture">
-    </div><div class="stats">
-        <h2 id="name" onclick="chooseChar()">John Doe</h2>
-        <h2 id="class" onclick="showNames()">John Doe</h2>
-        <div class="row">
-            <p class="info">HP:<br> <span id="HP">0</span></p>
-            <p class="info">pAtk:<br> <span id="pAtk">0</span></p>
-            <p class="info">pDef:<br> <span id="pDef">0</span></p></div>
-            <div class="row">
-            <p class="info">spd:<br> <span id="spd">0</span></p>
-            <p class="info">mAtk:<br> <span id="mAtk">0</span></p>
-            <p class="info">mDef:<br> <span id="mDef">0</span></p>
-        </div>
-        <p class="info">role: <span id="role"></span></p>
-        <p class="info">element: <span id="element"></span></p>
-        <p class="info">job: <span id="job"></span></p>
-        <p class="info">tier: <span id="tier"></span></p>
-    </div>
-
-    </div>
-
     <div class="hidden-container" id="namesContainer">
         <ul id="nameList">
         </ul>
     </div>
-        
+    <div class="document-bounds">
+    <div class="CenterContainer">
+        <div class="ColumnSectionTwoThirds">
+            <div class="FixedDivFitIntoContainer">
+                <div class="FixedDivContent"><img class="profile-pic" id="link" src="_blank" alt="Profile Picture"></div>
+            </div>
+            <div class="TopCenterHorizontalSection">
+                <div class="BoxContent"><div class="Icons" id="role"></div></div>
+                <div class="BoxContent"><div class="Icons" id="element"></div></div>
+                <div class="BoxContent"><div class="Icons" id="job"></div></div>
+            </div>
+            <div class="BottomLeftHorizontalSection">
+                <div class="BLSectionContent"></div>
+                <div class="BLSectionContent"></div>
+                <div class="BLSectionContent"></div>
+                <div class="BLSectionContent"></div>
+                <div class="BLSectionContent"></div>
+            </div>
+        </div>
+        <div class="ColumnSectionOneThird">
+            <div class="Text"><h2 id="class" onclick="showNames()">---</h2></div>
+            <div class="Text">LV:50/50<br><div class="Tiers" id="tier">1</div></div>
+            <div class="InLineHorizontalSection">
+                <div class="TextSpan"><p class="info">HP: <span id="HP">0</span></p></div>
+                <div class="TextSpan"><p class="info">pAtk: <span id="pAtk">0</span></p></div>
+                <div class="TextSpan"><p class="info">pDef: <span id="pDef">0</span></p></div>
+            </div>
+            <div class="InLineHorizontalSection">
+                <div class="TextSpan"><p class="info">spd: <span id="spd">0</span></div>
+                <div class="TextSpan"><p class="info">mAtk: <span id="mAtk">0</span></div>
+                <div class="TextSpan"><p class="info">mDef: <span id="mDef">0</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="BottomWideFixedContainer">
+        <div class="HorizontalSection">
+            <div class="HContentsEqualWidth"><h2 id="name" onclick="chooseChar()">---</h2></div>
+            <div class="HContentsEqualWidth"></div>
+            <div class="HContentsEqualWidth"></div>
+            <div class="HContentsEqualWidth"></div>
+            <div class="HContentsEqualWidth"></div>
+        </div>
+    </div>
+    <div class="LeftSidebarFixedLongContainer">
+        <div class="VerticalSection">
+            <div class="VContentsEqualHeight"></div>
+            <div class="VContentsEqualHeight"></div>
+            <div class="VContentsEqualHeight"></div>
+            <div class="VContentsEqualHeight"></div>
+            <div class="VContentsEqualHeight"></div>
+        </div>
+    </div>
+    </div>
     <script src="generated.js"></script>
     <script>
         function chooseChar() {
@@ -176,7 +280,17 @@
     else if (details.job == 6) {document.getElementById("job").innerText = "Crusher";} 
     else if (details.job == 7) {document.getElementById("job").innerText = "Ranger";} 
     else {document.getElementById("job").innerText = "Paladin";};
-    document.getElementById("tier").innerText = details.tier;
+    if (details.tier == 1) {
+        document.getElementById("tier").innerText = "★☆☆☆☆";
+    } else if (details.tier == 2) {
+        document.getElementById("tier").innerText = "★★☆☆☆";
+    } else if (details.tier == 3) {
+        document.getElementById("tier").innerText = "★★★☆☆";
+    } else if (details.tier == 4) {
+        document.getElementById("tier").innerText = "★★★★☆";
+    } else {
+        document.getElementById("tier").innerText = "★★★★★";
+    };
 }
     </script>
 </body>
