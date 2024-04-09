@@ -29,7 +29,7 @@
         position: relative;
     }
     
-    .FixedDivFitIntoContainer {
+    .ImgContainer {
         flex: 1;
         position: absolute;
         height: 100%;
@@ -37,36 +37,36 @@
         z-index: -1;
     }
     
-    .FixedDivContent {
+    .CharImg {
         position: absolute;
         top: 0;
         left: 0;
-        width: 100%; /* Adjust as needed */
-        height: 100%; /* Adjust as needed */
+        width: 100%; 
+        height: 100%; 
     }
-    .BottomWideFixedContainer {
+    .CharView {
         position: absolute;
         bottom: -50px;
         left: 0;
-        width: 100%; /* Adjust as needed */
+        width: 100%; 
     }
     
-    .LeftSidebarFixedLongContainer {
+    .SideBars {
         position: absolute;
         right: 0;
-        height: 100%; /* Adjust as needed */
+        height: 100%; 
         align-content: center;
     }
     
     
     .BoxContent {
-        width: 50px; /* Adjust as needed */
-        height: 50px; /* Adjust as needed */
-        background-color: lightblue; /* Example color */
-        margin: 0 2px; /* Adjust spacing */
+        width: 50px; 
+        height: 50px; 
+        background-color: lightblue; 
+        margin: 0 2px; 
     }
     
-    .TopCenterHorizontalSection {
+    .CharDisplay {
         display: flex;
         justify-content: center;
         bottom: 200px;
@@ -81,14 +81,43 @@
     }
     
     .Text {
-        background-color: lightgreen; /* Example color */
-        height: 50px; /* Adjust as needed */
-         /* Adjust spacing */
+        background-color: lightgreen; 
+        height: 50px; 
+         
         margin: 3px;
         align-content: center;
     }
     
-    .InLineHorizontalSection {
+    .Ability {
+        background-color: rgb(182, 181, 194); 
+        height: 100px; 
+        align-items: center;
+        margin: 10px;
+        display: flex;
+    }
+    
+    .SkillGroup {
+        position: relative;
+        display: flex;
+        justify-content: flex-end;
+        flex-direction: column;
+    }
+    .SkillIcon {
+        background-color: azure;
+        height: 80%;
+        margin-left: 10px;
+        width: 12vh;
+    }
+    p {
+        display: contents;
+    }
+    .SkillDetail {
+        background-color: rgb(252, 255, 240);
+        height: 80%;
+        width: 100%;
+        text-align: justify;
+    }
+    .StatLine {
         display: flex;
         height: 30px;
     }
@@ -96,9 +125,9 @@
     .TextSpan {
         flex: 1;
         margin: 2px 8px;
-        background-color: lightyellow; /* Example color */
-         /* Adjust spacing */
-         /* Adjust spacing */
+        background-color: lightyellow; 
+         
+         
     }
     
     .HorizontalSection {
@@ -112,18 +141,22 @@
         justify-content: space-evenly;
     }
     
-    .HContentsEqualWidth {
+    .ChSelect {
         flex: 1;
-        background-color: lightcoral; /* Example color */
-        margin: 10px; /* Adjust spacing */
+        background-color: lightcoral; 
+        margin: 10px; 
     }
     
-    .VContentsEqualHeight {
-        background-color: lightpink; /* Example color */
-         /* Adjust as needed */
-         /* Adjust spacing */
+    .SContent {
+        background-color: lightpink; 
+         
+         
         height: 60px;
         margin: 5px 0;
+    }
+    .Job {
+        height: 40%;
+        width: auto;
     }
     .hidden-container {
         display: none;
@@ -151,6 +184,41 @@
     .hidden-container li:hover {
         text-decoration: underline;
     }
+    #confirm {
+        background-color: antiquewhite;
+        position: absolute;
+        right: 2vh;
+        bottom: 2vh;
+        padding: 2vh;
+    }
+    .craft-container {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;    
+        height: 80%;
+        width: 600px;
+        overflow: auto;
+    }
+    .headtype {
+        height:30%;
+        background-color: #ccc;
+        width: auto;
+        display: flex;
+        align-items: center;
+    }
+    .craftA {
+        width: 30%;
+        height: 80%;
+        background-color: azure;
+        margin: 2vh;
+    }
 </style>
 </head>
 <body>
@@ -158,105 +226,169 @@
         <ul id="nameList">
         </ul>
     </div>
+    <div class="craft-container" id="tableContainer">
+        <h2>Skill Crafting Window</h2>
+        <div class="headtype" id="tableList">
+            <div class="craftA" id="SelectType">
+                <div class="skilltype" id="coretype"></div>
+                <div class="Select" id="core" onclick=Ac(id)></div>
+                <div class="Select" id="aug1" onclick=Ac(id)></div>
+                <div class="Select" id="aug2" onclick=Ac(id)></div>
+                <div class="Select" id="effect" onclick=Ac(id)></div> 
+            </div>
+        </div>
+        <div class="selection">
+
+        </div>
+    </div>
     <div class="document-bounds">
     <div class="CenterContainer">
         <div class="ColumnSectionTwoThirds">
-            <div class="FixedDivFitIntoContainer">
-                <div class="FixedDivContent"><img class="profile-pic" id="link" src="_blank" alt="Profile Picture"></div>
+            <div class="ImgContainer">
+                <div class="CharImg"><img class="image" id="link" src="_blank"></div>
             </div>
-            <div class="TopCenterHorizontalSection">
+            <div class="CharDisplay">
                 <div class="BoxContent"><div class="Icons" id="role"></div></div>
                 <div class="BoxContent"><div class="Icons" id="element"></div></div>
-                <div class="BoxContent"><div class="Icons" id="job"></div></div>
-            </div>
-            <div class="BottomLeftHorizontalSection">
-                <div class="BLSectionContent"></div>
-                <div class="BLSectionContent"></div>
-                <div class="BLSectionContent"></div>
-                <div class="BLSectionContent"></div>
-                <div class="BLSectionContent"></div>
+                <div class="BoxContent"><div class="Icons" id="atktype"></div></div>
             </div>
         </div>
         <div class="ColumnSectionOneThird">
-            <div class="Text"><h2 id="class" onclick="showNames()">---</h2></div>
-            <div class="Text">LV:50/50<br><div class="Tiers" id="tier">1</div></div>
-            <div class="InLineHorizontalSection">
+            <div class="Text"><img class="Job" src="n" id="job"> &nbsp;<h2 id="class" style="display: contents" onclick="showNames()">---</h2></div>
+            <div><div class="Text">LV:50/50<br><div id="tier">☆☆☆☆☆</div></div></div>
+            <div class="StatLine">
                 <div class="TextSpan"><p class="info">HP: <span id="HP">0</span></p></div>
                 <div class="TextSpan"><p class="info">pAtk: <span id="pAtk">0</span></p></div>
                 <div class="TextSpan"><p class="info">pDef: <span id="pDef">0</span></p></div>
             </div>
-            <div class="InLineHorizontalSection">
+            <div class="StatLine">
                 <div class="TextSpan"><p class="info">spd: <span id="spd">0</span></div>
                 <div class="TextSpan"><p class="info">mAtk: <span id="mAtk">0</span></div>
                 <div class="TextSpan"><p class="info">mDef: <span id="mDef">0</span></div>
             </div>
+            <br>
+            <br>
+            <br>
+            <div class="SkillGroup">
+                <div class="Ability"><div class="SkillIcon"></div><div class="SkillDetail">
+                    <p class="SkillText"><b>Strike</b> <span class="Stats"></span></p><br>
+                    <p class="SkillText">Stats: <span class="Stats"></span></p><br>
+                    <p class="SkillText">Augment: <span class="Stats"></span></p><br>
+                    <p class="SkillText">Augment: <span class="Stats"></span></p><br>
+                    <p class="SkillText">Effect: <span class="Stats"></span></p>
+                </div> </div>
+                <div class="Ability"><div class="SkillIcon"></div><div class="SkillDetail">
+                    <p class="SkillText"><b>Precision Roar</b> <span class="Stats"></span></p><br>
+                    <p class="SkillText">Stats: <span class="Stats"></span></p><br>
+                    <p class="SkillText">Augment: <span class="Stats"></span></p><br>
+                    <p class="SkillText">Augment: <span class="Stats"></span></p><br>
+                    <p class="SkillText">Effect: <span class="Stats"></span></p>
+                </div> </div>
+                <div class="Ability"><div class="SkillIcon"></div><div class="SkillDetail">
+                    <p class="SkillText"><b>Roar of Brutality</b> <span class="Stats"></span></p><br>
+                    <p class="SkillText">Stats: <span class="Stats"></span></p><br>
+                    <p class="SkillText">Augment: <span class="Stats"></span></p><br>
+                    <p class="SkillText">Augment: <span class="Stats"></span></p><br>
+                    <p class="SkillText">Effect: <span class="Stats"></span></p>
+                </div> </div>
+            </div>
         </div>
     </div>
-    <div class="BottomWideFixedContainer">
+    <div class="CharView">
         <div class="HorizontalSection">
-            <div class="HContentsEqualWidth"><h2 id="name" onclick="chooseChar()">---</h2></div>
-            <div class="HContentsEqualWidth"></div>
-            <div class="HContentsEqualWidth"></div>
-            <div class="HContentsEqualWidth"></div>
-            <div class="HContentsEqualWidth"></div>
+            <div class="ChSelect"><h2 id="name" onclick="chooseChar(id)">---</h2></div>
+            <div class="ChSelect"><h2 id="name2" onclick="chooseChar(id)">---</h2></div>
+            <div class="ChSelect"><h2 id="name3" onclick="chooseChar(id)">---</h2></div>
+            <div class="ChSelect"><h2 id="name4" onclick="chooseChar(id)">---</h2></div>
+            <div class="ChSelect"><h2 id="name5" onclick="chooseChar(id)">---</h2></div>
         </div>
     </div>
-    <div class="LeftSidebarFixedLongContainer">
+    <div class="SideBars">
         <div class="VerticalSection">
-            <div class="VContentsEqualHeight"></div>
-            <div class="VContentsEqualHeight"></div>
-            <div class="VContentsEqualHeight"></div>
-            <div class="VContentsEqualHeight"></div>
-            <div class="VContentsEqualHeight"></div>
+            <div class="SContent" id="craftskill" onclick="craftSkill()">Crafting</div>
+            <div class="SContent" id="craftskill" onclick="craftSkill()">Shop</div>
+            <div class="SContent" id="craftskill" onclick="craftSkill()">Gacha</div>
+            <div class="SContent" id="craftskill" onclick="craftSkill()">Upgrade</div>
+            <div class="SContent" id="craftskill" onclick="craftSkill()">Battle</div>
         </div>
     </div>
     </div>
     <script src="generated.js"></script>
+    <script src="generateitems.js"></script>
     <script>
-        function chooseChar() {
+    let v;
+        function craftSkill() {
+            const tableList = document.getElementById("tableList");
+            const listItem = document.createElement("div");
+            listItem.innerText = "Craft Skill";
+            listItem.id = "confirm";
+            listItem.onclick = () => makeSkill();
+            tableList.appendChild(listItem);
+            document.getElementById("tableContainer").style.display = "block";
+        }
+
+        function makeSkill() {
+            document.getElementById("tableContainer").style.display = "none";
+        }
+
+        function chooseChar(q) {
             const nameList = document.getElementById("nameList");
-            nameList.innerHTML = ""; // Clear previous list items
+            nameList.innerHTML = ""; 
             Object.keys(code).forEach(name => {
                 const listItem = document.createElement("li");
                 listItem.textContent = name;
-                listItem.onclick = () => selectName(name);
+                listItem.onclick = () => selectName(name, q);
                 nameList.appendChild(listItem);
             });
+            v = q;
             document.getElementById("namesContainer").style.display = "block";
         }
         
-        // Function to show the hidden container when the name is clicked
+        
         function showNames() {
             const nameList = document.getElementById("nameList");
             nameList.innerHTML = "";
-            const getName = document.getElementById("name").innerText;
+            const getName = document.getElementById(v).innerText;
             Object.keys(code[getName]).forEach(name => {
                 const classname = code[getName][name].class;
+                let tag;
+                    if (code[getName][name].job == 1) {tag = "https://sinoalice.game-db.tw/images/weapon_icon_001.png"} 
+                else if (code[getName][name].job == 2) {tag = "https://sinoalice.game-db.tw/images/weapon_icon_002.png"} 
+                else if (code[getName][name].job == 3) {tag = "https://sinoalice.game-db.tw/images/weapon_icon_003.png"} 
+                else if (code[getName][name].job == 4) {tag = "https://sinoalice.game-db.tw/images/weapon_icon_004.png"} 
+                else if (code[getName][name].job == 5) {tag = "https://sinoalice.game-db.tw/images/weapon_icon_005.png"} 
+                else if (code[getName][name].job == 6) {tag = "https://sinoalice.game-db.tw/images/weapon_icon_006.png"} 
+                else if (code[getName][name].job == 7) {tag = "https://sinoalice.game-db.tw/images/weapon_icon_007.png"} 
+                else {tag = "https://sinoalice.game-db.tw/images/weapon_icon_008.png"};
                 const listItem = document.createElement("li");
-                listItem.textContent = classname;
+                const fern = document.createElement("img");
+                fern.src = tag;
+                fern.style = "width:20px";
+                listItem.appendChild(fern);
+                listItem.appendChild(document.createTextNode(classname));
                 listItem.onclick = () => selectClass(classname, name);
                 nameList.appendChild(listItem);
             });
             document.getElementById("namesContainer").style.display = "block";
         }
 
-        // Function to select a name from the hidden container
-        function selectName(name) {
-            document.getElementById("name").innerText = name;
+        
+        function selectName(name, f) {
+            document.getElementById(f).innerText = name;
             document.getElementById("class").innerText = "---";
             document.getElementById("namesContainer").style.display = "none";
         }
 
-        // Function to select a name from the hidden container
+        
         function selectClass(name, index) {
             document.getElementById("class").innerText = name;
             document.getElementById("namesContainer").style.display = "none";
             initStats(index);
         }
 
-        // Dummy function for randomizing fields
+        
         function initStats(index) {
-    const currentName = document.getElementById("name").innerText;
+    const currentName = document.getElementById(v).innerText;
     const currentClass = document.getElementById("class").innerText;
     const details = code[currentName][index];
     document.getElementById("link").src = details.url;
@@ -272,14 +404,14 @@
     else if (details.role == 2) {document.getElementById("role").innerText = "Erode";}
     else if (details.role == 3) {document.getElementById("role").innerText = "Aid";}
     else {document.getElementById("role").innerText = "Guard";}
-    if (details.job == 1) {document.getElementById("job").innerText = "Minstrel";} 
-    else if (details.job == 2) {document.getElementById("job").innerText = "Sorcerer";} 
-    else if (details.job == 3) {document.getElementById("job").innerText = "Mage";}
-    else if (details.job == 4) {document.getElementById("job").innerText = "Cleric";} 
-    else if (details.job == 5) {document.getElementById("job").innerText = "Breaker";} 
-    else if (details.job == 6) {document.getElementById("job").innerText = "Crusher";} 
-    else if (details.job == 7) {document.getElementById("job").innerText = "Ranger";} 
-    else {document.getElementById("job").innerText = "Paladin";};
+    if (details.job == 1) {document.getElementById("job").src = "https://sinoalice.game-db.tw/images/weapon_icon_001.png";document.getElementById("atktype").innerText = "Mag"} 
+    else if (details.job == 2) {document.getElementById("job").src = "https://sinoalice.game-db.tw/images/weapon_icon_002.png";document.getElementById("atktype").innerText = "Mag"} 
+    else if (details.job == 3) {document.getElementById("job").src = "https://sinoalice.game-db.tw/images/weapon_icon_003.png";document.getElementById("atktype").innerText = "Mag"}
+    else if (details.job == 4) {document.getElementById("job").src = "https://sinoalice.game-db.tw/images/weapon_icon_004.png";document.getElementById("atktype").innerText = "Mag"} 
+    else if (details.job == 5) {document.getElementById("job").src = "https://sinoalice.game-db.tw/images/weapon_icon_005.png";document.getElementById("atktype").innerText = "Phy"} 
+    else if (details.job == 6) {document.getElementById("job").src = "https://sinoalice.game-db.tw/images/weapon_icon_006.png";document.getElementById("atktype").innerText = "Phy"} 
+    else if (details.job == 7) {document.getElementById("job").src = "https://sinoalice.game-db.tw/images/weapon_icon_007.png";document.getElementById("atktype").innerText = "Phy"} 
+    else {document.getElementById("job").src = "https://sinoalice.game-db.tw/images/weapon_icon_008.png";document.getElementById("atktype").innerText = "Phy"};
     if (details.tier == 1) {
         document.getElementById("tier").innerText = "★☆☆☆☆";
     } else if (details.tier == 2) {
