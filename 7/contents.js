@@ -37,7 +37,7 @@ function overlayContents() {
     const submity = addButton(input, "submity");
     submity.onclick = function() {
         const s = link.value.match(/[?&]v=([^&]+)/)[1];
-        input.innerHTML = `<iframe src='https://www.youtube.com/live_chat?v=${s}&embed_domain=mamequ.github.io' style='height:320px;width:100%'></iframe>`;
+        input.innerHTML = `<iframe src='https://www.youtube.com/live_chat?v=${s}&embed_domain=mamequ.github.io' style='height:100%;width:100%'></iframe>`;
     }
 
     let exp,exps;
@@ -895,7 +895,7 @@ function loadCSS() {
 .chat {
     display: flex;
     position: absolute;
-    height: 23vh;
+    height: 320px;
     width: 19.5vw;
     flex-direction: row;
     box-sizing: border-box;
