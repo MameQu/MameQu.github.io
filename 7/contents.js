@@ -36,6 +36,7 @@ function overlayContents() {
     const link = addTextarea(input, "link");
     const submity = addButton(input, "submity");
     submity.onclick = function() {
+        link.match(/[?&]v=([^&]+)/)[1];
         input.innerHTML = `<iframe src='${link.value}' style='height:100%;width:100%'></iframe>`;
     }
 
