@@ -43,7 +43,6 @@ function overlayContents() {
     let exp,exps;
     //store('a', 5540);
     //store('b', [84,61,41,0]);
-    store('b', [84,61,41,0]);
     if (data.a) {
         exp = data.a;
         const lv = level(exp);
