@@ -36,8 +36,8 @@ function overlayContents() {
     const link = addTextarea(input, "link");
     const submity = addButton(input, "submity");
     submity.onclick = function() {
-        link.match(/[?&]v=([^&]+)/)[1];
-        input.innerHTML = `<iframe src='${link.value}' style='height:100%;width:100%'></iframe>`;
+        const s = link.value.match(/[?&]v=([^&]+)/)[1];
+        input.innerHTML = `<iframe src='https://www.youtube.com/live_chat?v=${s}&embed_domain=mamequ.github.io' style='height:100%;width:100%'></iframe>`;
     }
 
     let exp,exps;
