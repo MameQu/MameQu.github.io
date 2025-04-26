@@ -894,7 +894,7 @@ function loadCSS() {
 .chat {
     display: flex;
     position: absolute;
-    height: 320px;
+    height: 360px;
     width: 19.5vw;
     flex-direction: row;
     box-sizing: border-box;
