@@ -376,6 +376,12 @@ function overlayContents() {
         }
     });
 
+    document.addEventListener('keydown', (e) => {
+        if (e.key.toLowerCase() === 'o') {
+            data.e = '';
+        }
+    });
+
     finish();
     //addCSSContainer();
 }
