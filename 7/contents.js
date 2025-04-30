@@ -45,6 +45,7 @@ function overlayContents() {
         input.innerHTML = `<iframe src='https://www.youtube.com/live_chat?v=${s}&embed_domain=mamequ.github.io' style='height:100%;width:100%'></iframe>`;
     }
     };
+    document.querySelector("title").innerText = 'GrindQuest';
 
     let exp,exps;
     //store('a', 5540);
