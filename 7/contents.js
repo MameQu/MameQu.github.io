@@ -45,7 +45,6 @@ function overlayContents() {
         input.innerHTML = `<iframe src='https://www.youtube.com/live_chat?v=${s}&embed_domain=mamequ.github.io' style='height:100%;width:100%'></iframe>`;
     }
     };
-    document.querySelector("title").innerText = 'GrindQuest';
 
     let exp,exps;
     //store('a', 5540);
@@ -334,6 +333,7 @@ function overlayContents() {
     }
     
     function showAlert() {
+        document.querySelector("title").innerText = 'GrindQuest';
         alert.style.cssText = `visibility: visible;`;
         if(s >= 1) {
             alert.textContent = `Attacking (${s}) . . .`;
@@ -348,6 +348,7 @@ function overlayContents() {
                 alert.textContent = "Invasion commences . . .";
                 match();
             };
+            document.querySelector("title").innerText = 'matching';
         }, 5000);
     }
 
