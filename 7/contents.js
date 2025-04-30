@@ -333,7 +333,7 @@ function overlayContents() {
     }
     
     function showAlert() {
-        document.querySelector("title").innerText = 'GrindQuest';
+        document.querySelector("title").innerText = 'matching';
         alert.style.cssText = `visibility: visible;`;
         if(s >= 1) {
             alert.textContent = `Attacking (${s}) . . .`;
@@ -348,7 +348,7 @@ function overlayContents() {
                 alert.textContent = "Invasion commences . . .";
                 match();
             };
-            document.querySelector("title").innerText = 'matching';
+            document.querySelector("title").innerText = 'Grindquest';
         }, 5000);
     }
 
