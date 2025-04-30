@@ -35,15 +35,16 @@ function overlayContents() {
     const input = addDiv(chat, "input");
     const link = addTextarea(input, "link");
     const submity = addButton(input, "submity");
-    if(!data.e === '') {
+    if(!data.e == '') {
         const s = data.e;
         input.innerHTML = `<iframe src='https://www.youtube.com/live_chat?v=${s}&embed_domain=mamequ.github.io' style='height:100%;width:100%'></iframe>`;
-    };
+    } else {
     submity.onclick = function() {
         const s = link.value.match(/[?&]v=([^&]+)/)[1];
         store('e',s);
         input.innerHTML = `<iframe src='https://www.youtube.com/live_chat?v=${s}&embed_domain=mamequ.github.io' style='height:100%;width:100%'></iframe>`;
     }
+    };
 
     let exp,exps;
     //store('a', 5540);
