@@ -67,12 +67,10 @@ function overlayContents() {
     }
 
     console.log(exps);
-    for (let i = 0;i < links.length; i++) {
+    for (let i = 0;i < names.length; i++) {
     const button = addButton(div2a, "buttons");
     button.textContent = names[i];
     button.onclick = function() {
-        const audio = new Audio(links[i]);
-        audio.play();
         chord.textContent = names[i];
     }
     }
@@ -158,17 +156,14 @@ function overlayContents() {
             bar.style.width = '0%';
             if (select === 1) {
                 math = Math.round((2 * 60 * 1000) / 100);
-                const t = randomize(links);
-                const audio = new Audio(links[t]);
+                const t = randomize(names);
                 chord.textContent = names[t];
                 const i = randomize(music);
                 div2ba.textContent = music[i];
-                audio.play();
                 exp = exp + 15;
                 clear(math, exp);
                 exps[0] = exps[0] + 1;
                 setTimeout(() => {
-                    audio.pause()
                     store('b', exps);
                     updateTier();
                     v = 0;
@@ -191,7 +186,7 @@ function overlayContents() {
                 div2ba.textContent = `${observe[i]}`;
                 math = Math.round((5 * 60 * 1000) / 100);
                 exp = exp + 65;
-                clear(math, exp, 0);
+                clear(math, exp);
                 exps[2] = exps[2] + 1;
                 setTimeout(() => {
                     read();
@@ -206,17 +201,14 @@ function overlayContents() {
             bar.style.width = '0%';
             if (g === 'Music') {
                 math = Math.round((2 * 60 * 1000) / 100);
-                const t = randomize(links);
-                const audio = new Audio(links[t]);
+                const t = randomize(names);
                 chord.textContent = names[t];
                 const i = randomize(music);
                 div2ba.textContent = music[i];
-                audio.play();
                 exp = exp + 15;
                 clear(math, exp);
                 exps[0] = exps[0] + 1;
                 setTimeout(() => {
-                    audio.pause()
                     store('b', exps);
                     updateTier();
                 }, Math.round(math * 100))
@@ -237,11 +229,8 @@ function overlayContents() {
                 div2ba.textContent = `${make[i]}`;
                 math = Math.round((30 * 60 * 1000) / 100);
                 exp = exp + 500;
-                clear(math, exp, 0);
+                clear(math, exp);
                 exps[2] = exps[2] + 4;
-                setTimeout(() => {
-                    read();
-                }, 2000)
                 setTimeout(() => {
                     store('b', exps);
                     updateTier();
@@ -251,11 +240,8 @@ function overlayContents() {
                 div2ba.textContent = `${observe[i]}`;
                 math = Math.round((5 * 60 * 1000) / 100);
                 exp = exp + 65;
-                clear(math, exp, 0);
+                clear(math, exp);
                 exps[2] = exps[2] + 1;
-                setTimeout(() => {
-                    read();
-                }, math * 2)
                 setTimeout(() => {
                     store('b', exps);
                     updateTier();
@@ -281,7 +267,10 @@ function overlayContents() {
                 };
             }
 
-            function clear(math, exp, audio = 1) {
+            function clear(math, exp) {
+                setTimeout(() => {
+                    read();
+                }, math * 2)
                 const interval = setInterval(() => {
                   if (width < 100) {
                     width++;
@@ -290,7 +279,6 @@ function overlayContents() {
                     });
                   } else {
                     clearInterval(interval);
-                    read();
                     if(s > 1) {
                         s--;
                         finish(500);

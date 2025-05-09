@@ -1,4 +1,3 @@
-const links = ["audio/MWD Drone C.mp3","audio/MWD Drone Csharp.mp3","audio/MWD Drone D.mp3","audio/MWD Drone Dsharp.mp3","audio/MWD Drone E.mp3","audio/MWD Drone F.mp3","audio/MWD Drone Fsharp.mp3","audio/MWD Drone G.mp3","audio/MWD Drone Gsharp.mp3","audio/MWD Drone A.mp3","audio/MWD Drone Asharp.mp3","audio/MWD Drone B.mp3"];
 const names = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
 const music = ["Ionian","Dorian","Phrygian","Lydian","Mixolydian","Aeolian","Locrian","Natural Minor","Harmonic Minor","Melodic Minor","Pentatonic Major","Pentatonic Minor","Whole-Tone","Chords"];
 const art = ["Box","Isometric"];
