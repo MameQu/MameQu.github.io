@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qu Links</title>
+   <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            height: 100%;
+            background-repeat: no-repeat;
+        }
+        .top-right-buttons {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        a {
+            color: blue; 
+            text-decoration: none;
+        }
+        .category {
+            display: inline-block;
+            margin-right: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9c7;
+            vertical-align: top;
+        }
+
+        .category h2 {
+            margin: 0;
+        }
+
+        .category ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .category li {
+            padding: 5px 0;
+        }
+
+        .button {
+            padding: 5px;
+            cursor: pointer;
+            background-color: #92a8bf;
+            color: white;
+            border: none;
+            border-radius: 10px;
+        }
+        .add-btn {
+            color: #0056b3;
+        }
+        .remove-btn {
+            color: #ca5454;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        #modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            display: none;
+            z-index: 1000;
+        }
+
+        #modal textarea {
+            width: 100%;
+            height: 50px;
+            margin-bottom: 10px;
+        }
+
+        #modal-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .time {
+            right: 100px;
+            font-size: 2rem;
+        }
+        .date {
+            position: absolute;
+            font-size: 1rem;
+            left: 50px;
+            top: 60px;
+            color: black;
+        }
+
+        #modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ffffff82;
+            display: none;
+            z-index: 900;
+        }
+        .calendar {
+            position:fixed;
+            width: 300px;
+            left: 50px;
+            bottom: 50px;
+            padding: 1px;
+            z-index: -100;
+            color: black;
+        }
+        .calendarTable {
+            pointer-events: none;
+        }
+        .cover {
+            width: 100vw;
+            height: 100vh;
+            background-color: #ffffff47;
+            position: fixed;
+            top: 0;
+            pointer-events: none;
+            left: 0;
+            z-index: -150;
+        }
+        .background {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            background-repeat: no-repeat;
+            top: 0;
+            background-size: cover;
+            background-position: center;
+            left: 0;
+            pointer-events: none;
+            z-index: -200;
+        }
+        select {
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        #year {
+            position:fixed;
+            font-size:3em;
+            right: 50px;
+            bottom: 1px;
+            z-index: -100;
+            color: black;
+            pointer-events: none;
+        }
+        table {
+            width: 100%;
+            padding: 1px;
+            border-collapse: collapse;
+        }
+        #categories-container {     
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid black;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+</div>
+    <span class="time" id="time">time</span>
+    <span class="date" id="date">Month - Day</span>
+ <h1>Qu Redirects</h1>
+    <div class="top-right-buttons">
+        <button class="button" id="add-category-btn">ADD</button>
+        <button class="button" id="remove-category-btn">+</button>
+        <button class="button" id="hide-category-btn">👁</button>
+    </div>
+
+    <div id="categories-container"></div>
+
+    <!-- Modal Structure -->
+    <div id="modal-overlay"></div>
+    <div id="modal">
+        <h3 id="modal-title">Add New Category</h3>
+        <textarea id="modal-input"></textarea>
+        <div id="modal-buttons">
+            <button class="button" id="confirm-btn">Confirm</button>
+            <button class="button" id="cancel-btn">Cancel</button>
+        </div>
+    </div>
+    <h2 id="year"></h2>
+    <div class="calendar">
+        <div hidden>
+            <select id="monthSelect"></select>
+            <button id="todayButton">Now</button>
+        </div>
+        <table id="calendarTable">
+            <thead>
+                <tr>
+                    <th>Sun</th>
+                    <th>Mon</th>
+                    <th>Tue</th>
+                    <th>Wed</th>
+                    <th>Thu</th>
+                    <th>Fri</th>
+                    <th>Sat</th>
+                </tr>
+            </thead>
+            <tbody id="calendarBody"></tbody>
+        </table>
+    </div>
+    <div class="cover"></div>
+    <div class="background"></div>
+    <script>
+    let g, bgs;
+    const currentDate = new Date();
+    var now = new Date();
+    
+        const currentYear = currentDate.getFullYear();
+        const currentMonth = currentDate.getMonth();
+        const today = currentDate.getDate();
+        const monthSelect = document.getElementById('monthSelect');
+        const calendarBody = document.getElementById('calendarBody');
+        const yearTitle = document.getElementById('year');
+        const todayButton = document.getElementById('todayButton');
+    
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    
+        function populateMonthSelect() {
+            months.forEach((month, index) => {
+                const option = document.createElement('option');
+                option.value = index;
+                option.textContent = month;
+                if (index === currentMonth) {
+                    option.selected = true;
+                }
+                monthSelect.appendChild(option);
+            });
+        }
+        
+        
+        g = JSON.parse(localStorage.getItem('Backgrounds'));
+
+        function generateCalendar(month, year) {
+            calendarBody.innerHTML = '';
+    
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+    
+            let day = 1;
+            for (let i = 0; i < 6; i++) {
+                const row = document.createElement('tr');
+    
+                for (let j = 0; j < 7; j++) {
+                    const cell = document.createElement('td');
+    
+                    if (i === 0 && j < firstDay) {
+                        cell.textContent = '';
+                    } else if (day > daysInMonth) {
+                        break;
+                    } else {
+                        cell.textContent = day;
+    
+                        // Highlight today's date
+                        if (year === currentYear && month === currentMonth && day === today) {
+                            cell.style.backgroundColor = 'yellow';
+                        }
+    
+                        day++;
+                    }
+    
+                    row.appendChild(cell);
+                }
+    
+                calendarBody.appendChild(row);
+            }
+        }
+    
+        monthSelect.addEventListener('change', () => {
+            const selectedMonth = parseInt(monthSelect.value);
+            generateCalendar(selectedMonth, currentYear);
+        });
+    
+        todayButton.addEventListener('click', () => {
+            monthSelect.value = currentMonth;
+            generateCalendar(currentMonth, currentYear);
+        });
+    
+        yearTitle.textContent = currentYear;
+        populateMonthSelect();
+        generateCalendar(currentMonth, currentYear);
+        let toggles = 0;
+        let currentAction = null;
+        let currentTarget = null;
+    
+        if (localStorage.getItem('hide') == 0) {
+            hidebutton();
+        };
+    setTimeout(crest, 5000)
+    function crest() {
+        const savedCategories = JSON.parse(localStorage.getItem('categories')) || [];
+        savedCategories.forEach(category => {
+            addCategory(category.title, category.bookmarks);
+        });
+    }
+
+    document.getElementById('add-category-btn').addEventListener('click', function() {
+        openModal('Category Name', function(value) {
+            addCategory(value);
+            saveCategoriesToLocalStorage();
+        });
+    });
+
+document.getElementById('remove-category-btn').addEventListener('click', function() {
+    if (document.getElementById('remove-category-btn').innerText == '+') {
+        document.getElementById('remove-category-btn').innerText = '-';
+        document.querySelectorAll('.remove-btn').forEach(function(el) {
+            el.toggleAttribute('hidden');
+        });
+        document.querySelectorAll('.add-btn').forEach(function(el) {
+            el.toggleAttribute('hidden');
+        });
+    } else {
+        document.getElementById('remove-category-btn').innerText = '+';
+        document.querySelectorAll('.remove-btn').forEach(function(el) {
+         el.toggleAttribute('hidden');
+        });
+        document.querySelectorAll('.add-btn').forEach(function(el) {
+            el.toggleAttribute('hidden');
+        });
+    }
+});
+
+    document.getElementById('hide-category-btn').addEventListener('click', function() {
+        hidebutton();
+    });
+
+    function hidebutton() {
+        if (document.querySelector("#categories-container").style.visibility == 'collapse') {
+            document.querySelector("#categories-container").style.visibility = 'visible';
+            document.body.style.overflow = 'auto';
+            localStorage.setItem('hide', 1);
+        } else {
+            document.querySelector("#categories-container").style.visibility = 'collapse';
+            document.body.style.overflow = 'hidden';
+            localStorage.setItem('hide', 0);
+        }
+        document.querySelector("body > h1").toggleAttribute('hidden');
+    }
+
+    function openModal(title, confirmAction) {
+        document.getElementById('modal-title').textContent = title;
+        document.getElementById('modal-input').value = '';
+        document.getElementById('modal').style.display = 'block';
+        document.getElementById('modal-overlay').style.display = 'block';
+
+        currentAction = confirmAction;
+    }
+    //current code
+
+    document.getElementById('confirm-btn').addEventListener('click', function() {
+        const value = document.getElementById('modal-input').value;
+        if (currentAction) {
+            try {
+            JSON.parse(value);
+                g = JSON.parse(value);
+            } catch (e) {
+                currentAction(value);
+            }
+        }  
+            localStorage.setItem("Backgrounds", JSON.stringify(g));
+        closeModal();
+    });
+
+    //current code
+    document.getElementById('cancel-btn').addEventListener('click', function() {
+        closeModal();
+    });
+
+    function closeModal() {
+        document.getElementById('modal').style.display = 'none';
+        document.getElementById('modal-overlay').style.display = 'none';
+    }
+    function addCategory(categoryTitle, bookmarks = []) {
+        if (categoryTitle) {
+            const categoryDiv = document.createElement('div');
+            categoryDiv.className = 'category';
+
+            const categoryHeader = document.createElement('h2');
+            categoryHeader.textContent = categoryTitle;
+
+            const removeBtn = document.createElement('span');
+            removeBtn.textContent = ' [-]';
+            removeBtn.className = 'remove-btn';
+            removeBtn.setAttribute('hidden', '');
+            removeBtn.onclick = function() {
+                categoryDiv.remove();
+                saveCategoriesToLocalStorage();
+            };
+            categoryHeader.appendChild(removeBtn);
+            categoryDiv.appendChild(categoryHeader);
+
+            const bookmarkList = document.createElement('ul');
+            categoryDiv.appendChild(bookmarkList);
+
+            // Add saved bookmarks if any
+            bookmarks.forEach(bookmark => {
+                addBookmark(bookmarkList, bookmark.title, bookmark.url);
+            });
+
+            const addBookmarkBtn = document.createElement('span');
+            addBookmarkBtn.textContent = ' [+] Add Bookmark';
+            addBookmarkBtn.className = 'add-btn';
+            addBookmarkBtn.setAttribute('hidden', '');
+            addBookmarkBtn.onclick = function() {
+                openModal('Title and URL (comma-separated):', function(value) {
+                    const [title, url] = value.split(',');
+                    addBookmark(bookmarkList, title.trim(), url.trim());
+                    saveCategoriesToLocalStorage();
+                });
+            };
+
+            categoryDiv.appendChild(addBookmarkBtn);
+
+            document.getElementById('categories-container').appendChild(categoryDiv);
+        }
+    }
+
+    function addBookmark(bookmarkList, title, url) {
+        if (title && url) {
+            const listItem = document.createElement('li');
+            const link = document.createElement('a');
+            link.href = url;
+            link.textContent = title;
+            link.target = '_blank';
+            listItem.appendChild(link);
+
+            const removeBtn = document.createElement('span');
+            removeBtn.textContent = ' [-]';
+            removeBtn.setAttribute('hidden', '');
+            removeBtn.className = 'remove-btn';
+            removeBtn.onclick = function() {
+                listItem.remove();
+                saveCategoriesToLocalStorage();
+            };
+
+            listItem.appendChild(removeBtn);
+            bookmarkList.appendChild(listItem);
+        }
+    }
+
+    function saveCategoriesToLocalStorage() {
+        const categories = [];
+        document.querySelectorAll('.category').forEach(categoryDiv => {
+            const title = categoryDiv.querySelector('h2').textContent.replace(' [-]', '');
+            const bookmarks = [];
+            categoryDiv.querySelectorAll('ul li').forEach(listItem => {
+                const link = listItem.querySelector('a');
+                bookmarks.push({
+                    title: link.textContent,
+                    url: link.href
+                });
+            });
+            categories.push({
+                title: title,
+                bookmarks: bookmarks
+            });
+        });
+        localStorage.setItem('categories', JSON.stringify(categories));
+    }
+
+
+    function updateTime() {
+        now = new Date()
+        // Format the time
+        let hours = String(now.getHours()).padStart(2, '0');
+        let minutes = String(now.getMinutes()).padStart(2, '0');
+        let timeString = `${hours}:${minutes}`;
+
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        let month = months[now.getMonth()];
+        const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        let day = daysOfWeek[now.getDay()];
+        let dateString = `${month} - ${day}`;
+
+
+        document.getElementById('time').textContent = timeString;
+        document.getElementById('date').textContent = dateString;
+    }
+    setInterval(updateTime, 5000);
+    function updatebg() {
+    const v = now.getMonth();
+    switch(v) {
+        case 11: bgs = g.Snow;break;
+        case 0: bgs = g.Space;break;
+        case 1: bgs = g.Moon;break;
+        case 2: bgs = g.Rain;break;
+        case 3: bgs = g.Food;break;
+        case 4: bgs = g.Flower;break;
+        case 5: bgs = g.Music;break;
+        case 6: bgs = g.Ocean;break;
+        case 7: bgs = g.Mountains;break;
+        case 8: bgs = g.Crops;break;
+        case 9: bgs = g.Lights;break;
+        default: bgs = g.Books;break;
+    };
+    let bgIndex = localStorage.getItem('bgIndex');
+    if (bgIndex === null) {
+        bgIndex = 0;
+    } else {
+        bgIndex++;
+        if (bgIndex >= bgs.length) {
+            bgIndex = 0;
+        }
+    }
+    document.querySelector("body > div.background").style.backgroundImage = `url(${bgs[bgIndex]})`;
+    localStorage.setItem('bgIndex', bgIndex);
+    }
+    updatebg();
+        updateTime();
+    </script>
+</body>
+</html>
