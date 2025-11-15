@@ -9,7 +9,7 @@ const cubism4Model =
         resizeTo: window
     });
 
-    PIXI.live2d.Live2DModel.from("cubism4Model").then(model => {
+    PIXI.live2d.Live2DModel.from(cubism4Model).then(model => {
         app.stage.addChild(model);
 
         model.scale.set(0.5);
