@@ -11,16 +11,12 @@
 		{
 			"Target": "Parameter",
 			"Name": "LipSync",
-			"Ids": [
-				"speak"
-			]
+			"Ids": []
 		},
 		{
 			"Target": "Parameter",
 			"Name": "EyeBlink",
-			"Ids": [
-				"blink"
-			]
+			"Ids": []
 		}
 	]
 }
