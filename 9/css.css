@@ -1,0 +1,64 @@
+
+    textarea {
+        overflow-y: auto;
+      }
+
+          .overlay-container {
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100vw;
+              height: 100vh;
+              pointer-events: none;
+              background: rgba(0, 0, 0, 0);
+              z-index: 9999;
+          }
+          .overlay-wrap > * {
+              pointer-events: auto;
+          }
+
+          .overlay-wrap {
+              pointer-events: none;
+              position: relative;
+              width:100%;
+              height:100%;
+          }
+              .f1 {
+      pointer-events: auto;
+      position: absolute;
+      height: 500px;
+      display: flex;
+      right: 20px;
+      width: 400px;
+      top: 20px;
+      flex-direction: column;
+      }
+      .a1 {
+      pointer-events: auto;
+      display: flex;
+      position: relative;
+      flex-grow: 1;
+      background: rgba(0, 0, 0, 0.1);
+      }
+      .a2 {
+      pointer-events: auto;
+      position: relative;
+      height: 20px;
+      display: flex;
+      background: rgba(0, 0, 0, 0.3);
+      }
+    
+.divs {
+    pointer-events: auto;
+    position: absolute;
+    height: 80vh;
+    width: 60vw;
+    background: #7a8199;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    top: 10vh;
+    left: 20vw;
+    box-sizing: border-box;
+    padding: 10px;
+} 

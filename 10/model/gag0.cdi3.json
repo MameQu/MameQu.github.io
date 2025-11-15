@@ -1,0 +1,42 @@
+{
+	"Version": 3,
+	"Parameters": [
+		{
+			"Id": "ParamBreath",
+			"GroupId": "",
+			"Name": "breath"
+		},
+		{
+			"Id": "talk",
+			"GroupId": "",
+			"Name": "talk"
+		},
+		{
+			"Id": "speak",
+			"GroupId": "",
+			"Name": "speak"
+		},
+		{
+			"Id": "blink",
+			"GroupId": "",
+			"Name": "blink"
+		},
+		{
+			"Id": "bob",
+			"GroupId": "",
+			"Name": "bob"
+		},
+		{
+			"Id": "hair",
+			"GroupId": "",
+			"Name": "hair"
+		}
+	],
+	"ParameterGroups": [],
+	"Parts": [
+		{
+			"Id": "Part",
+			"Name": "Group 2"
+		}
+	]
+}
