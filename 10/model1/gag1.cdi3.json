@@ -1,0 +1,50 @@
+{
+	"Version": 3,
+	"Parameters": [
+		{
+			"Id": "ParamBreath",
+			"GroupId": "",
+			"Name": "breath"
+		},
+		{
+			"Id": "talk",
+			"GroupId": "",
+			"Name": "talk"
+		},
+		{
+			"Id": "speak",
+			"GroupId": "",
+			"Name": "speak"
+		},
+		{
+			"Id": "blink",
+			"GroupId": "",
+			"Name": "blink"
+		},
+		{
+			"Id": "bob",
+			"GroupId": "",
+			"Name": "bob"
+		},
+		{
+			"Id": "hair",
+			"GroupId": "",
+			"Name": "hair"
+		}
+	],
+	"ParameterGroups": [],
+	"Parts": [
+		{
+			"Id": "Part3",
+			"Name": "ava.psd (Corresponding layer not found)"
+		},
+		{
+			"Id": "Part",
+			"Name": "Group 2"
+		},
+		{
+			"Id": "Part2",
+			"Name": "Group 2"
+		}
+	]
+}

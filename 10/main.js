@@ -1,5 +1,5 @@
 const cubism4Model =
-    "model/gag0.model3.json";
+    "model1/gag1.model3.json";
 
 const app = new PIXI.Application({
     view: document.getElementById("canvas"),
