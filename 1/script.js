@@ -734,11 +734,20 @@ var CharacterArray =
     "1/842.png"
   ]
 };
-var a, b, src, i, stacc;
+// 1. Initialize our tracking system
+// This loads previously finished images from your browser's memory, or starts fresh.
+let completedImages = new Set(JSON.parse(localStorage.getItem('completedImages') || '[]'));
+let activeImages = []; // Stores the un-finished images for the currently selected character
+let currentImageIndex = 0; // Tracks where we are in the floating viewer
 
+var a, src, i, stacc;
 const sidebar = document.querySelector('.sidebar');
 const toggleButton = document.getElementById('toggleButton');
+const boxes = document.querySelectorAll('.box');
+var container = $("<div>").addClass("display-content");
+$(".contents").append(container);
 
+// Sidebar Toggle
 toggleButton.addEventListener('click', () => {
   sidebar.classList.toggle('active');
   if ($("#toggleButton").text() === ">") {
@@ -748,92 +757,138 @@ toggleButton.addEventListener('click', () => {
   }
 });
 
+// Populate Sidebar Characters
 for (let name in CharacterArray) {
   $(".box-content").append($("<div>").addClass("box").text(name));
-  var images = CharacterArray[name].map(function(url) {
+  // Preload images (Optional, keep if you want them cached)
+  CharacterArray[name].forEach(function(url) {
     var img = new Image();
     img.src = url;
-    return img;
   });
 }
 
-const boxes = document.querySelectorAll('.box');
+// Re-select boxes since we just appended them dynamically
+const dynamicBoxes = document.querySelectorAll('.box');
 
-var container = $("<div>").addClass("display-content");
-$(".contents").append(container);
-
-boxes.forEach(box => {
+// 2. Main Character Selection & Pagination Logic
+dynamicBoxes.forEach(box => {
   box.addEventListener('click', () => {
     a = box.textContent;
-    $(".pb").remove();
-    sidebar.classList.toggle('active');
-    stacc = Math.floor(CharacterArray[a].length / 21) + (CharacterArray[a].length % 21 > 0 ? 1 : 0);
-    for (i = 0; i < 21; i++) {
-      var srcValue = CharacterArray[a][i] || "white.png";
-      $(".image-resize").eq(i).attr("src", srcValue);
+    $(".pb").remove(); // Clear old pagination
+    sidebar.classList.remove('active'); // Close sidebar on selection
+    
+    // FILTER: Only grab images that are NOT in our completed list
+    activeImages = CharacterArray[a].filter(url => !completedImages.has(url));
+
+    // Recalculate pagination based on remaining images
+    stacc = Math.ceil(activeImages.length / 21);
+    
+    // Load the first page (up to 21 images)
+    renderGrid(0);
+
+    // Create Pagination Buttons
+    for (i = 1; i <= stacc; i++) {
+      $("<span>").text(i).addClass("pb").appendTo(".span");
     }
 
-    for (i = 1; i < stacc + 1; i++) {
-      $("<span>").text(i).addClass("pb").appendTo(".span");
-    };
-
-    var pbutton = document.querySelectorAll('.pb');
-
-    pbutton.forEach(pb => {
+    // Pagination Click Logic
+    document.querySelectorAll('.pb').forEach(pb => {
       pb.addEventListener('click', () => {
-        b = pb.textContent;
-        console.log(b);
-        for (i = 0 + ((b - 1) * 21); i < 21 * b; i++) {
-          $(".image-resize").eq(i - ((b - 1) * 21)).attr("src", CharacterArray[a][i] || "white.png");
-        }
+        let pageNum = parseInt(pb.textContent) - 1;
+        renderGrid(pageNum);
       });
     });
   });
 });
 
+// Helper function to render the 21-image grid
+function renderGrid(pageIndex) {
+  for (let j = 0; j < 21; j++) {
+    let absoluteIndex = (pageIndex * 21) + j;
+    let srcValue = activeImages[absoluteIndex] || "white.png";
+    $(".image-resize").eq(j).attr("src", srcValue);
+  }
+}
 
+// Create the 21 grid image elements ONCE
 for (i = 0; i < 21; i++) {
-  var image = $("<img>").attr("src", "").addClass("image-resize").click(function() {
-    imageResizeHandler();
-  });
+  var image = $("<img>").attr("src", "white.png").addClass("image-resize");
   container.append(image);
-};
+}
 
-var imageResizeHandler = function() {
-  $(".image-resize").click(function() {
-    src = $(this).attr("src");
-    if (!src.includes('white.png')) {
-      i = 0;
-      b = CharacterArray[a][CharacterArray[a].indexOf(src) + i];
-      $(".image-display").attr("src", b);
-      $(".floating-picture").fadeIn();
-    }
-  });
+// 3. Cleaned-up Image Click Handler
+$(".image-resize").on("click", function() {
+  src = $(this).attr("src");
+  if (!src.includes('white.png')) {
+    currentImageIndex = activeImages.indexOf(src); // Track exact position
+    $(".image-display").attr("src", activeImages[currentImageIndex]);
+    $(".floating-picture").fadeIn();
+  }
+});
 
-  $(".floating-picture").click(function() {
-    $(".floating-picture").fadeOut();
-  });
-};
+// Close Modal
+$(".floating-picture").click(function(e) {
+  // Only close if clicking the background, not the image itself
+  if(e.target === this) {
+    $(this).fadeOut();
+    renderGrid(0); // Refresh the grid to remove any newly marked images
+  }
+});
 
-const boxListDiv = document.getElementById('box-content');
-
-
+// 4. Keyboard Navigation & Marking logic
 $(document).keydown(function(event) {
   if ($(".floating-picture").is(":visible")) {
+    
     if (event.which === 37) {  // Left arrow key
-      if (i > 0 - CharacterArray[a].indexOf(src)) {
-        i--;
-        console.log(i);
-        b = CharacterArray[a][CharacterArray[a].indexOf(src) + i];
-        $(".image-display").attr("src", b);
+      if (currentImageIndex > 0) {
+        currentImageIndex--;
+        $(".image-display").attr("src", activeImages[currentImageIndex]);
       }
+      
     } else if (event.which === 39) {  // Right arrow key
-      if (i < CharacterArray[a].length - 1) {
-        i++;
-        console.log(i);
-        b = CharacterArray[a][CharacterArray[a].indexOf(src) + i];
-        $(".image-display").attr("src", b);
+      if (currentImageIndex < activeImages.length - 1) {
+        currentImageIndex++;
+        $(".image-display").attr("src", activeImages[currentImageIndex]);
+      }
+      
+    } else if (event.which === 77) { // 'M' KEY - MARK AS DONE
+      
+      let doneUrl = activeImages[currentImageIndex];
+      completedImages.add(doneUrl); // Add to our completed tracking
+      
+      // Save progress to browser storage
+      localStorage.setItem('completedImages', JSON.stringify([...completedImages]));
+      console.log("Marked as done:", doneUrl);
+
+      // Remove from the current viewing array so it skips
+      activeImages.splice(currentImageIndex, 1);
+
+      // Auto-skip to next image (or close if character is fully finished)
+      if (activeImages.length === 0) {
+        $(".floating-picture").fadeOut();
+        renderGrid(0); // Refresh grid to show emptyness
+      } else {
+        // Adjust index if we just marked the very last image
+        if (currentImageIndex >= activeImages.length) {
+          currentImageIndex = activeImages.length - 1;
+        }
+        // Show the next image seamlessly
+        $(".image-display").attr("src", activeImages[currentImageIndex]);
       }
     }
   }
+
+  (async () => {
+    if ('wakeLock' in navigator) {
+      try {
+        // Request the wake lock
+        const wakeLock = await navigator.wakeLock.request('screen');
+        console.log('Wake Lock is active! Your monitor won’t turn off.');
+      } catch (err) {
+        console.error(`${err.name}, ${err.message}`);
+      }
+    } else {
+      console.error('Wake Lock API not supported in this browser.');
+    }
+  })();
 });
